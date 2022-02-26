@@ -1,0 +1,22 @@
+html, body{
+	font-family: "Roboto", sans-serif;
+	font-size: 1rem;
+	padding: 10px;
+}
+
+.logoEmpresa{
+	width: 100%;
+	max-width: 100px;
+	height: auto;
+}
+
+.header-sup{
+	border: none;
+	max-width: 750px;
+	margin: 0 auto;
+}
+
+.tam-letra{
+	font-size: 12px;
+	color: #3D8BFD;
+}
