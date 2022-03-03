@@ -1,13 +1,17 @@
 import React from "react";
-import {Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 import Main from "./pages/Main";
+import NoMatch from "./pages/NotMatch";
 
 const App = () => {
 	return (
-		<Routes>
-			<Route exact path="/" element={Main} />
-		</Routes>
+		<BrowserRouter>
+			<Routes>
+				<Route path="/:id" element={<Main />}/>
+				<Route path="*" element={<NoMatch />} />
+			</Routes>
+		</BrowserRouter>
 	)
 }
 

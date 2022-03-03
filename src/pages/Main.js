@@ -1,18 +1,25 @@
 import React from 'react';
-import TiposCertificados from '../TiposCertificados';
+import TiposCertificados from '../components/TiposCertificados';
+import NoMatch from './NotMatch';
+import { useParams } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { datosEmpresas } from '../Empresas';
 
-
 const logos = require.context('../assets/img', true);
 
-const Main = (props) => {
-	const empresa = datosEmpresas['1'];
+const Main = () => {
+	const claves  = Object.keys(datosEmpresas);
+	const params = useParams();
+	
+	if(claves.indexOf(params.id) === -1) {
+		return <NoMatch />
+	}
+
+	const empresa = datosEmpresas[params.id];
 
 	return (
 		<>
-			
 			<div className="container shadow-lg bg-light rounded">
 				<div className="row">
 					<div className="card mb-3 header-sup bg-light">
