@@ -6,7 +6,7 @@ import NoMatch from "./pages/NotMatch";
 
 const App = () => {
 	return (
-		<BrowserRouter basename={process.env.PUBLIC_URL}>
+		<BrowserRouter>
 			<Routes>
 				<Route path="/:id" element={<Main />}/>
 				<Route path="*" element={<NoMatch />} />
