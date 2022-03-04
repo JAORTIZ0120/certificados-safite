@@ -1,9 +1,8 @@
-import React from 'react';
-import TiposCertificados from '../components/TiposCertificados';
-import NoMatch from './NotMatch';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import swal from 'sweetalert';
 import { datosEmpresas } from '../Empresas';
 
 const logos = require.context('../assets/img', true);
@@ -12,11 +11,55 @@ const Main = () => {
 	const claves  = Object.keys(datosEmpresas);
 	const params = useParams();
 	
+	const [datos, setDatos] = useState({
+		nit: '',
+		password: '',
+		tipoCertificado: '',
+	});
+	
 	if(claves.indexOf(params.id) === -1) {
-		return <NoMatch />
+		window.location.href = "https://safite.com/";
 	}
 
 	const empresa = datosEmpresas[params.id];
+
+	const handleInputChange = (event) => {
+		setDatos({
+			...datos,
+			[event.target.name]: event.target.value
+		})
+	}
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+
+		let nitCertificado = datos.nit;
+		let ultimosDigitos = nitCertificado.slice(-4);
+
+		if(ultimosDigitos !== datos.password) {
+			swal({
+				title: 'Error',
+				text: 'Contraseña incorrecta',
+				icon: 'error',
+				button: 'Aceptar'
+			})
+			return;
+		}
+
+		if(!datos.tipoCertificado){
+			swal({
+				title: 'Error',
+				text: 'Debe seleccionar un tipo de certificado',
+				icon: 'error',
+				button: 'Aceptar'
+			})
+
+			return;
+		}
+		const url = `certificados/${empresa.nombreEmpresa}/${datos.tipoCertificado}/${datos.tipoCertificado}_${datos.nit}.pdf`;
+
+		window.open(url, '_blank');
+	}
 
 	return (
 		<>
@@ -38,16 +81,35 @@ const Main = () => {
 					<div className="col-md-6 offset-md-3 mb-5">
 						<div className="card">
 							<div className="card-body">
-								<form className="form-group">
+								<form className="form-group" onSubmit={ handleSubmit }>
 									<label className="form-label">NIT / RUT </label>
-									<input type="text" className="form-control mb-3" autoFocus placeholder="Sin digito de verificacion"/>
+									<input 
+										name="nit" 
+										type="text" 
+										className="form-control mb-3" 
+										autoFocus
+										required
+										placeholder="Sin digito de verificacion"
+										onChange={ handleInputChange }
+									/>
 									<label className="form-label">Contraseña</label>
-									<input type="password" autoComplete="off" className="form-control"/>
+									<input 
+										name="password" 
+										type="password" 
+										autoComplete="off" 
+										required
+										className="form-control" 
+										onChange={ handleInputChange }
+									/>
 									<div className="form-text mb-3 tam-letra">{ empresa.mensajeFormulario }</div>
 									<label className="form-label">Tipo Certificado</label>
-									<TiposCertificados />
+									<select name="tipoCertificado" className="form-select mb-3" onChange={ handleInputChange }>
+										<option value="">Seleccione una opción</option>
+										<option value="Retencion">Retención</option>
+										<option value="ReteIca">ReteICA</option>
+									</select>
 									<div className="modal-footer">
-										<button className="btn btn-success">Consultar</button>
+										<button className="btn btn-success" type="submit">Consultar</button>
 									</div>
 								</form>
 							</div>
