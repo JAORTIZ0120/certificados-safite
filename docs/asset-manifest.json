@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.1b3f157a.css",
-    "main.js": "/static/js/main.5d700eb5.js",
+    "main.js": "/static/js/main.fe456504.js",
     "static/media/Logo-Intranscar.png": "/static/media/Logo-Intranscar.495f9a6bde6e0c3bb007.png",
     "static/media/Logo_Safite.png": "/static/media/Logo_Safite.8e3a6936b4a1128d08fe.png",
     "static/media/Logo-ICSA.jpg": "/static/media/Logo-ICSA.708aa44d743c201f74c9.jpg",
     "index.html": "/index.html",
     "main.1b3f157a.css.map": "/static/css/main.1b3f157a.css.map",
-    "main.5d700eb5.js.map": "/static/js/main.5d700eb5.js.map"
+    "main.fe456504.js.map": "/static/js/main.fe456504.js.map"
   },
   "entrypoints": [
     "static/css/main.1b3f157a.css",
-    "static/js/main.5d700eb5.js"
+    "static/js/main.fe456504.js"
   ]
 }
