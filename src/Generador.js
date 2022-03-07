@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
-import { datosEmpresas } from './Empresas';
 
 const logos = require.context('./assets/img', true);
 
 const Generador = () => {
-	const plantillaEmpresa = '71A383554617C345A4918DCAD809A09A';
+	const plantillaEmpresa = "intranscar.certificados.safite.com" /*document.location.hostname*/;
 	
+	const [empresa, setDatosEmpresas] = useState({
+		nombreEmpresa: "Empresa Default",
+		logo: "./Logo_Safite.png",
+		mensajeFormulario : "Empresa Default",
+		mensajeFooter: "Empresa Default"
+	});
+
+	useEffect(() => {
+		fetch("http://certificados.api.safite.com/", {method: 'POST' })
+		.then(res => res.json())
+		.then(
+			(result) => {
+				setDatosEmpresas(result.items[plantillaEmpresa]);
+			}
+		)
+	}, []);
+
 	const [datos, setDatos] = useState({
 		nit: '',
 		password: '',
 		tipoCertificado: '',
 	});
-
-	const empresa = datosEmpresas[plantillaEmpresa];
 
 	const handleInputChange = (event) => {
 		setDatos({
