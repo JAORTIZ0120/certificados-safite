@@ -5,9 +5,7 @@ import swal from 'sweetalert';
 
 const logos = require.context('./assets/img', true);
 
-const Generador = () => {
-	const plantillaEmpresa = "intranscar.certificados.safite.com" /*document.location.hostname*/;
-	
+const Generador = () => {	
 	const [empresa, setDatosEmpresas] = useState({
 		nombreEmpresa: "Empresa Default",
 		logo: "./Logo_Safite.png",
@@ -20,6 +18,8 @@ const Generador = () => {
 		.then(res => res.json())
 		.then(
 			(result) => {
+				const plantillaEmpresa = document.location.hostname;
+				
 				setDatosEmpresas(result.items[plantillaEmpresa]);
 			}
 		)
