@@ -1,27 +1,21 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
-import { datosEmpresas } from '../Empresas';
+import { datosEmpresas } from './Empresas';
 
-const logos = require.context('../assets/img', true);
+const logos = require.context('./assets/img', true);
 
-const Main = () => {
-	const claves  = Object.keys(datosEmpresas);
-	const params = useParams();
+const Generador = () => {
+	const plantillaEmpresa = '71A383554617C345A4918DCAD809A09A';
 	
 	const [datos, setDatos] = useState({
 		nit: '',
 		password: '',
 		tipoCertificado: '',
 	});
-	
-	if(claves.indexOf(params.id) === -1) {
-		window.location.href = "https://safite.com/";
-	}
 
-	const empresa = datosEmpresas[params.id];
+	const empresa = datosEmpresas[plantillaEmpresa];
 
 	const handleInputChange = (event) => {
 		setDatos({
@@ -89,7 +83,7 @@ const Main = () => {
 										className="form-control mb-3" 
 										autoFocus
 										required
-										placeholder="Sin digito de verificacion"
+										placeholder="Con digito de verificacion sin el guion (Ej: 123456789)"
 										onChange={ handleInputChange }
 									/>
 									<label className="form-label">Contraseña</label>
@@ -105,8 +99,8 @@ const Main = () => {
 									<label className="form-label">Tipo Certificado</label>
 									<select name="tipoCertificado" className="form-select mb-3" onChange={ handleInputChange }>
 										<option value="">Seleccione una opción</option>
-										<option value="Retencion">Retención</option>
-										<option value="ReteIca">ReteICA</option>
+										<option value="RENTA">Retención</option>
+										<option value="ICA">ReteICA</option>
 									</select>
 									<div className="modal-footer">
 										<button className="btn btn-success" type="submit">Consultar</button>
@@ -124,4 +118,4 @@ const Main = () => {
 	);
 }
 
-export default Main;
+export default Generador;
