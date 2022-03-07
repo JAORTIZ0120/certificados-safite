@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import swal from 'sweetalert';
-import { datosEmpresas } from '../Empresas';
 
-const logos = require.context('../assets/img', true);
+const logos = require.context('./assets/img', true);
 
-const Main = () => {
-	const claves  = Object.keys(datosEmpresas);
-	const params = useParams();
+const Generador = () => {
+	const plantillaEmpresa = "intranscar.certificados.safite.com" /*document.location.hostname*/;
 	
+	const [empresa, setDatosEmpresas] = useState({
+		nombreEmpresa: "Empresa Default",
+		logo: "./Logo_Safite.png",
+		mensajeFormulario : "Empresa Default",
+		mensajeFooter: "Empresa Default"
+	});
+
+	useEffect(() => {
+		fetch("http://certificados.api.safite.com/", {method: 'POST' })
+		.then(res => res.json())
+		.then(
+			(result) => {
+				setDatosEmpresas(result.items[plantillaEmpresa]);
+			}
+		)
+	}, []);
+
 	const [datos, setDatos] = useState({
 		nit: '',
 		password: '',
 		tipoCertificado: '',
 	});
-	
-	if(claves.indexOf(params.id) === -1) {
-		window.location.href = "https://safite.com/";
-	}
-
-	const empresa = datosEmpresas[params.id];
 
 	const handleInputChange = (event) => {
 		setDatos({
@@ -89,7 +97,7 @@ const Main = () => {
 										className="form-control mb-3" 
 										autoFocus
 										required
-										placeholder="Sin digito de verificacion"
+										placeholder="Con digito de verificacion sin el guion (Ej: 123456789)"
 										onChange={ handleInputChange }
 									/>
 									<label className="form-label">Contraseña</label>
@@ -105,8 +113,8 @@ const Main = () => {
 									<label className="form-label">Tipo Certificado</label>
 									<select name="tipoCertificado" className="form-select mb-3" onChange={ handleInputChange }>
 										<option value="">Seleccione una opción</option>
-										<option value="Retencion">Retención</option>
-										<option value="ReteIca">ReteICA</option>
+										<option value="RENTA">Retención</option>
+										<option value="ICA">ReteICA</option>
 									</select>
 									<div className="modal-footer">
 										<button className="btn btn-success" type="submit">Consultar</button>
@@ -124,4 +132,4 @@ const Main = () => {
 	);
 }
 
-export default Main;
+export default Generador;

@@ -1,14 +1,14 @@
 import React from "react";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {Routes, Route, BrowserRouter} from "react-router-dom";
 
-import Main from "./pages/Main";
-import NoMatch from "./pages/NotMatch";
+import Generador from "./Generador";
+import NoMatch from "./NotMatch";
 
 const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/:id" element={<Main />}/>
+				<Route path="/" element={<Generador />} />
 				<Route path="*" element={<NoMatch />} />
 			</Routes>
 		</BrowserRouter>
