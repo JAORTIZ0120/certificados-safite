@@ -9,7 +9,6 @@ const App = () => {
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Generador />} />
-				<Route path="*" element={<NoMatch />} />
 			</Routes>
 		</BrowserRouter>
 	)

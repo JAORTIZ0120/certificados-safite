@@ -19,7 +19,6 @@ const Generador = () => {
 		.then(
 			(result) => {
 				const plantillaEmpresa = document.location.hostname;
-				
 				setDatosEmpresas(result.items[plantillaEmpresa]);
 			}
 		)
@@ -66,7 +65,22 @@ const Generador = () => {
 		}
 		const url = `certificados/${empresa.nombreEmpresa}/${datos.tipoCertificado}/${datos.tipoCertificado}_${datos.nit}.pdf`;
 
-		window.open(url, '_blank');
+		var xhr = new XMLHttpRequest();
+		xhr.open('HEAD', url, false);
+		xhr.send();
+	
+		if (xhr.status === 404) {
+			swal({
+				title: 'Error',
+				text: 'No se ha encontrado un certificado con los datos ingresados',
+				icon: 'error',
+				button: 'Aceptar'
+			})
+
+			return;
+		} else {
+			window.open(url, '_blank');
+		}
 	}
 
 	return (
