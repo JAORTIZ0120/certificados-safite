@@ -71,9 +71,10 @@ const Generador = () => {
 	
 		if (xhr.status === 404) {
 			swal({
-				title: 'Error',
+				title: 'Alerta',
 				text: 'No se ha encontrado un certificado con los datos ingresados',
-				icon: 'error',
+				footer: 'Porfavor verifique los datos e intente nuevamente',
+				icon: 'warning',
 				button: 'Aceptar'
 			})
 
